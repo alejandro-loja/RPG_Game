@@ -10,6 +10,21 @@ $(document).ready(function () {
         $('.pokemon').on('mouseover', function () {
             var whichPokemon = $(this).attr("id");
             console.log('The pokemon is ' + whichPokemon)
+            $('#' + whichPokemon).addClass('infinite');
+            // var crystIntValue = parseInt(crystValue);
+            // totalVal = totalVal + crystIntValue;
+            // $('#total-value').text(totalVal);
+            // winnerORloser();
+        });
+    };
+    function pokemonChosenClick() {
+        $('.pokemon').on('click', function () {
+            console.log('clicked')
+            var whichPokemon = $(this).attr("id");
+
+            // var whichPokemon = $(this).attr("id");
+            // console.log('The pokemon is ' + whichPokemon)
+            $('#' + whichPokemon).removeClass('infinite');
             // var crystIntValue = parseInt(crystValue);
             // totalVal = totalVal + crystIntValue;
             // $('#total-value').text(totalVal);
@@ -18,4 +33,5 @@ $(document).ready(function () {
     };
 
     pokemonChosen();
+    pokemonChosenClick();
 });
