@@ -4,8 +4,20 @@ body {
     background-size: cover;
     background-repeat: no-repeat;
 }
-
+.make-red {
+    border: 5px red solid;
+}
+#pokemon-chosen{
+    border: 1px red solid;
+    text-transform: capitalize;
+}
+.counters {
+    border: 2px red solid;
+    float: left;
+}
 .pokemon {
+    border: 2px red solid;
+    margin: 50px;
     width: 15%; /* you can use % */
     height: auto;
 }

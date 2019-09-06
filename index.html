@@ -5,16 +5,25 @@
     <meta charset="UTF-8">
     <link rel="stylesheet" type="text/css" href='./assets/css/style.css'>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.2/animate.min.css">
-
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>RPG</title>
 </head>
 
 <body>
-    <img src="assets/images/bulbasaur.png" id="bulbasaur"class="pokemon animated bounce faster" alt="bulbasaur">
-    <img src="assets/images/charmander.png" id="charmander" class="pokemon animated shake fast" alt="charmander">
-    <img src="assets/images/squirtle.png" id="squirtle" class="pokemon animated tada faster" alt="squirtle">
+    <div class="counters">
+        <span class="wins">0</span>
+        <span class="losses">0</span>
+    </div>
+    <div id="center-stage1">
+        <h1 class="text-center">Choose a Pokemon!</h1>
+        <!-- <img src="assets/images/Bulbasaur.png" id="bulbasaur" class="pokemon animated bounce faster" alt="bulbasaur">
+        <img src="assets/images/Charmander.png" id="charmander" class="pokemon animated bounce faster" alt="charmander">
+        <img src="assets/images/Squirtle.png" id="squirtle" class="pokemon animated bounce faster" alt="squirtle"> -->
+    </div>
+    <span id="pokemon-chosen"></span>
+    </div>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script type="text/javascript" src="./assets/javascript/games.js"></script>
 </body>
