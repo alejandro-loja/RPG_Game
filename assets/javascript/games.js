@@ -6,6 +6,7 @@ $(document).ready(function () {
     let genNumber;
     let totalVal = 0;
 
+    //pokemonObj has all the pokemon and their stats
     let pokemonObj =
     {
         bulbasaur: {
@@ -34,7 +35,8 @@ $(document).ready(function () {
         }
     };
 
-    const pkmnToRender = [pokemonObj.bulbasaur.name, pokemonObj.charmander.name, pokemonObj.squirtle.name]
+    // a list of the order i'd like the pokmeon to render.
+    const pkmnToRender = [pokemonObj.bulbasaur.name, pokemonObj.charmander.name, pokemonObj.squirtle.name];
 
     //used to create pokmeon based on name of pokemon
     function jqCreateImgPkmn(name) {
@@ -44,10 +46,10 @@ $(document).ready(function () {
     //centers pokemon for the first screen ie choose a pokemon
     function renderChoosePokemon(arr) {
         arr.map(name => $('#center-stage1').append(jqCreateImgPkmn(name)));
-
     };
 
     function pokemonChosen() {
+        //uses a mouseover. added the 'infinite' addition in order to activate the animation.
         $('.pokemon').on('mouseover', function () {
             let whichPokemon = $(this).attr("id");
 
@@ -56,7 +58,7 @@ $(document).ready(function () {
             console.log('The pokemon is ' + whichPokemon);
             $('#' + whichPokemon).addClass('infinite');
         });
-    };
+    }
 
     function pokemonChosenMouseOut() {
         $('.pokemon').on('mouseout', function () {
@@ -72,12 +74,25 @@ $(document).ready(function () {
             let whichPokemon = $(this).attr("id");
             $('#' + whichPokemon).removeClass('infinite');
             $('#pokemon-chosen').text(`You chose ${whichPokemon}!`)
-            $('body').addClass('fadeOutRightBig animated fast');
+            // $("#center-stage1").addClass('fadeOutRightBig animated fast');
+
+            // $("#center-stage1").removeClass('fadeOutRightBig animated fast');
+
+            renderBattle(whichPokemon);
         });
     };
 
+    function renderBattle (pickedPkmn) {
+        $("#center-stage1").empty();
+        $("#center-stage1").append('<h1 class="text-center">Let\'s Battle!</h1>');
+        $("#center-stage1").append(jqCreateImgPkmn(pickedPkmn));
+    }
+
+    //First Render Pokemon onto 'center-stage1 using the designated list.
     renderChoosePokemon(pkmnToRender);
+    // pokemon will move with mouseover
     pokemonChosen();
+
     pokemonChosenMouseOut();
     pokemonChosenClick();
 });
