@@ -21,3 +21,6 @@ body {
     width: 15%; /* you can use % */
     height: auto;
 }
+.test{
+    border: 2px blue solid;
+}
