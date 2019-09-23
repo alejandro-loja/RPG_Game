@@ -40,6 +40,7 @@ $(document).ready(function () {
 
     //used to create pokmeon based on name of pokemon
     function jqCreateImgPkmn(name) {
+
         let pkmnImg = $(`<img src="assets/images/${name}.png" id="${name}" class="pokemon animated bounce faster" alt="${name}">`);
         return pkmnImg;
     }
