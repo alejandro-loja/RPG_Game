@@ -44,19 +44,19 @@ $(document).ready(function () {
         return pkmnImg;
     }
     //centers pokemon for the first screen ie choose a pokemon
-    function renderChoosePokemon(arr, idFriendOrFoe, classAni, classSpeed, className='') {
+    function renderChoosePokemon(arr, idFriendOrFoe, classAni, classSpeed, className = '') {
         // Will have the following animation characteristics: bounce faster
-        arr.map(name => $(`#${idFriendOrFoe}`).append(jqCreateImgPkmn(name,classAni, classSpeed, className)));
+        arr.map(name => $(`#${idFriendOrFoe}`).append(jqCreateImgPkmn(name, classAni, classSpeed, className)));
     }
-    
-    function pokemonChosen(chosenBool) {
+
+    function pokemonChosen(idText, chosenBool) {
         //uses a mouseover. added the 'infinite' addition in order to activate the animation.
         $('.pokemon').on('mouseover', function () {
             let whichPokemon = $(this).attr("id");
 
             // todo for adding text show stats of pokemon.. i guess.
             if (!chosenBool) {
-                $('#pokemon-stats').text(whichPokemon);
+                $(idText).text(whichPokemon);
             }
             $('#' + whichPokemon).addClass('infinite');
         });
@@ -67,29 +67,32 @@ $(document).ready(function () {
         });
     }
 
-    function pokemonChosenClick() {
+    function pokemonChosenClick(idText, callback, chosenBool) {
         $('.pokemon').on('click', function () {
             let whichPokemon = $(this).attr("id");
             $('#' + whichPokemon).removeClass('infinite');
-            $('#pokemon-stats').text(`You chose ${whichPokemon}!`);
-            renderBattle(whichPokemon);
+            if (!chosenBool) {
+                $(idText).text(`You chose ${whichPokemon}!`);
+                callback(whichPokemon);
+            }
         });
     }
 
-    function renderBattle(pickedPkmn) {
+    function renderBattle(pickedPkmn, callback) {
         //id of "
-        $(".text-center").html("Let's Battle!!");
+        $(".text-center").html("Let's Battle!! - Choose an Opponent.");
         console.log(pickedPkmn)
-        $("#pokemon-chosen").html(jqCreateImgPkmn(pickedPkmn,'pulse', 'fast'));
+        $("#pokemon-chosen").html(jqCreateImgPkmn(pickedPkmn, 'pulse', 'fast'));
         // newPkmnToRender will remove the chosen pokemon from the pkmnToRender
         pkmnToRender = pkmnToRender.filter(pkmn => pkmn !== pickedPkmn);
-        renderChoosePokemon(pkmnToRender, 'pokemon-verses', 'tada', 'fast');
-        pokemonChosen(true);
+        renderChoosePokemon(pkmnToRender, 'pokemon-opponent', 'tada', 'fast');
+        pokemonChosen('#pokemon-opponent-stats');
+        pokemonChosenClick('#pokemon-opponent-stats', null, true);
     }
 
     //First Render Pokemon onto 'center-stage1 using the designated list.
-    renderChoosePokemon(pkmnToRender, 'pokemon-chosen','bounce', 'faster');
+    renderChoosePokemon(pkmnToRender, 'pokemon-chosen', 'bounce', 'faster');
     // pokemonChosen - handles mouseOut, mouseIn animation
-    pokemonChosen();
-    pokemonChosenClick();
+    pokemonChosen('#pokemon-stats');
+    pokemonChosenClick('#pokemon-stats', renderBattle);
 });
