@@ -1,4 +1,5 @@
 $(document).ready(function () {
+    // const hello = require('./pokemon.js')
     //READY TO PLAY
     console.log("jQuery Ready!");
     let wins = 0;
@@ -67,13 +68,15 @@ $(document).ready(function () {
         });
     }
 
-    function pokemonChosenClick(idText, callback, chosenBool) {
-        $('.pokemon').on('click', function () {
+    function pokemonChosenClick(classClick, idText, callback, chosenBool) {
+        $(classClick).on('click', function () {
             let whichPokemon = $(this).attr("id");
             $('#' + whichPokemon).removeClass('infinite');
             if (!chosenBool) {
                 $(idText).text(`You chose ${whichPokemon}!`);
-                callback(whichPokemon);
+                if (typeof callback === 'function') {
+                    callback(whichPokemon);
+                }
             }
         });
     }
@@ -85,14 +88,14 @@ $(document).ready(function () {
         $("#pokemon-chosen").html(jqCreateImgPkmn(pickedPkmn, 'pulse', 'fast'));
         // newPkmnToRender will remove the chosen pokemon from the pkmnToRender
         pkmnToRender = pkmnToRender.filter(pkmn => pkmn !== pickedPkmn);
-        renderChoosePokemon(pkmnToRender, 'pokemon-opponent', 'tada', 'fast');
+        renderChoosePokemon(pkmnToRender, 'pokemon-opponent', 'tada', 'fast', 'pkmn-opponent');
         pokemonChosen('#pokemon-opponent-stats');
-        pokemonChosenClick('#pokemon-opponent-stats', null, true);
+        pokemonChosenClick('.pkmn-opponent', '#pokemon-opponent-stats', null, false);
     }
 
     //First Render Pokemon onto 'center-stage1 using the designated list.
     renderChoosePokemon(pkmnToRender, 'pokemon-chosen', 'bounce', 'faster');
     // pokemonChosen - handles mouseOut, mouseIn animation
     pokemonChosen('#pokemon-stats');
-    pokemonChosenClick('#pokemon-stats', renderBattle);
+    pokemonChosenClick('.pokemon', '#pokemon-stats', renderBattle);
 });
