@@ -37,11 +37,16 @@ $(document).ready(function () {
     };
 
     // a list of the order i'd like the pokmeon to render.
-    let pkmnToRender = [pokemonObj.bulbasaur.name, pokemonObj.charmander.name, pokemonObj.squirtle.name];
+    let pkmnToRender = [
+        pokemonObj.bulbasaur.name,
+        pokemonObj.charmander.name,
+        pokemonObj.squirtle.name
+    ];
 
     //used to create pokmeon based on name of pokemon
     function jqCreateImgPkmn(name, classAni, classSpeed, className = '') {
-        let pkmnImg = $(`<img src="assets/images/${name.toLowerCase()}.png" id="${name}" class="pokemon animated ${classAni} ${classSpeed} ${className}" alt="${name}">`);
+        let pkmnImg = $(`<img src="assets/images/${name.toLowerCase()}.png" id="${name}" 
+        class="pokemon animated ${classAni} ${classSpeed} ${className}" alt="${name}">`);
         return pkmnImg;
     }
     //centers pokemon for the first screen ie choose a pokemon
