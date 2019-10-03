@@ -15,24 +15,48 @@ $(document).ready(function () {
             kdex: 1,
             type: 'grass',
             hp: 60,
-            attack1: 30,
-            attack2: 20
+            attacks: [
+                {
+                    attackName: 'Vine Whip',
+                    damage: 30
+                },
+                {
+                    attackName: 'Tackle',
+                    damage: 20
+                }
+            ]
         },
         charmander: {
             name: 'Charmander',
             kdex: 3,
             type: 'fire',
             hp: 65,
-            attack1: 10,
-            attack2: 40
+            attacks: [
+                {
+                    attackName: 'Scratch',
+                    damage: 10
+                },
+                {
+                    attackName: 'Ember',
+                    damage: 40
+                }
+            ]
         },
         squirtle: {
             name: 'Squirtle',
             kdex: 7,
             type: 'water',
             hp: 50,
-            attack1: 20,
-            attack2: 25
+            attacks: [
+                {
+                    attackName: 'Tackle',
+                    damage: 20
+                },
+                {
+                    attackName: 'Water Gun',
+                    damage: 40
+                }
+            ]
         }
     };
 
@@ -80,22 +104,36 @@ $(document).ready(function () {
             if (!chosenBool) {
                 $(idText).text(`You chose ${whichPokemon}!`);
                 if (typeof callback === 'function') {
+                    console.log(callback)
                     callback(whichPokemon);
                 }
             }
         });
+
+    }
+
+    function renderFight(whichPokemon) {
+        console.log(whichPokemon);
+        $("#pokemon-opponent").html(jqCreateImgPkmn(whichPokemon, 'bounce', 'fast', 'infinite'));
+    };
+
+    function renderStats(whichPokemon, attacksID) {
+        const opponent = pokemonObj[whichPokemon.toLowerCase()];
+        console.log(opponent);
+        opponent.attacks.map((attack,i) => { $(`#${attacksID}`).append(`<p>${attack.attackName}<p>`) })
     }
 
     function renderBattle(pickedPkmn, callback) {
-        //id of "
         $(".text-center").html("Let's Battle!! - Choose an Opponent.");
         console.log(pickedPkmn)
-        $("#pokemon-chosen").html(jqCreateImgPkmn(pickedPkmn, 'pulse', 'fast'));
+        $("#pokemon-chosen").html(jqCreateImgPkmn(pickedPkmn, 'pulse', 'fast', 'infinite'));
+        renderStats(pickedPkmn,'pokemon-attack')
         // newPkmnToRender will remove the chosen pokemon from the pkmnToRender
         pkmnToRender = pkmnToRender.filter(pkmn => pkmn !== pickedPkmn);
         renderChoosePokemon(pkmnToRender, 'pokemon-opponent', 'tada', 'fast', 'pkmn-opponent');
         pokemonChosen('#pokemon-opponent-stats');
-        pokemonChosenClick('.pkmn-opponent', '#pokemon-opponent-stats', null, false);
+        pokemonChosenClick('.pkmn-opponent', '#pokemon-opponent-stats', renderFight, false);
+
     }
 
     //First Render Pokemon onto 'center-stage1 using the designated list.
