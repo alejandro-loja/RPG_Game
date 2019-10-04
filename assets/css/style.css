@@ -1,26 +1,50 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+
 body {
-    background-color: gray;
-    background-image: url("../../assets/images/battle_background.png");
-    background-size: cover;
-    background-repeat: no-repeat;
+  font-family: 'Cutive Mono', monospace;
+  border: 1px red solid;
+  width: 800px;
+  height: 600px;
+  margin: auto;
+  background-color: #0dce7e;
+  background-image: url("../../assets/images/battle_background.png");
+  background-size: cover;
+  background-repeat: no-repeat;
 }
-.make-red {
-    border: 5px red solid;
+
+#pokemon-chosen {
+  border: 1px red solid;
+  text-transform: capitalize;
 }
-#pokemon-chosen{
-    border: 1px red solid;
-    text-transform: capitalize;
-}
+
 .counters {
-    border: 2px red solid;
-    float: left;
+  position: fixed;
+  left: 10px;
+  float: left;
+  background-color: #eee;
+  padding: 10px;
 }
+
 .pokemon {
-    border: 2px red solid;
-    margin: 50px;
-    width: 15%; /* you can use % */
-    height: auto;
+  margin: 1px;
+  width: 80px;
+  /* you can use % */
 }
-.test{
-    border: 2px blue solid;
+
+#pokemon-info {
+  position: absolute;
+  left: 9.5%;
+  bottom: 0;
+  display: block;
+  width: 80%;
+  height: 100px;
+  background-color: #eee;
 }
+
+.test {
+  border: 2px blue solid;
+}
+/*# sourceMappingURL=style.css.map */

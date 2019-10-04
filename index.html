@@ -3,10 +3,12 @@
 
 <head>
     <meta charset="UTF-8">
+
+    <link href="https://fonts.googleapis.com/css?family=Cutive+Mono&display=swap" rel="stylesheet">
+
     <link rel="stylesheet" type="text/css" href='./assets/css/style.css'>
+
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.2/animate.min.css">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
-        integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>RPG</title>
@@ -22,17 +24,20 @@
 
     <div id="center-stage1">
         <h1 class="text-center">Choose a Pokemon!</h1>
-        <div>
-            <div id="pokemon-stats">-</div>
-            <div id="pokemon-chosen"></div>
-            <div id="pokemon-attack"></div>
-        </div>
-        <div>
+        <div id="pokemon-choose"></div>
+        <div id="pokemon-foe">
             <div id="pokemon-opponent-stats"></div>
             <div id="pokemon-opponent"></div>
             <div id="pokemon-opponent-attack"></div>
         </div>
+        <div id="pokemon-mine">
+            <div id="pokemon-stats"></div>
+            <div id="pokemon-chosen"></div>
+            <div id="pokemon-attack"></div>
+        </div>
+
     </div>
+    <div id="pokemon-info"></div>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script type="text/javascript" src="./assets/javascript/games.js"></script>
 </body>

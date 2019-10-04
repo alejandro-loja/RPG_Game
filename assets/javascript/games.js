@@ -131,14 +131,14 @@ $(document).ready(function () {
         // newPkmnToRender will remove the chosen pokemon from the pkmnToRender
         pkmnToRender = pkmnToRender.filter(pkmn => pkmn !== pickedPkmn);
         renderChoosePokemon(pkmnToRender, 'pokemon-opponent', 'tada', 'fast', 'pkmn-opponent');
-        pokemonChosen('#pokemon-opponent-stats');
-        pokemonChosenClick('.pkmn-opponent', '#pokemon-opponent-stats', renderFight, false);
+        pokemonChosen('#pokemon-info');
+        pokemonChosenClick('.pkmn-opponent', '#pokemon-info', renderFight, false);
 
     }
 
     //First Render Pokemon onto 'center-stage1 using the designated list.
     renderChoosePokemon(pkmnToRender, 'pokemon-chosen', 'bounce', 'faster');
     // pokemonChosen - handles mouseOut, mouseIn animation
-    pokemonChosen('#pokemon-stats');
-    pokemonChosenClick('.pokemon', '#pokemon-stats', renderBattle);
+    pokemonChosen('#pokemon-info');
+    pokemonChosenClick('.pokemon', '#pokemon-info', renderBattle);
 });
