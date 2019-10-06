@@ -15,30 +15,38 @@
 </head>
 
 <body>
-    <div class="counters">
-        <p>Score:
-            <span class="wins">0</span>
-            <span class="losses">0</span>
-        </p>
-    </div>
-
-    <div id="center-stage1">
-        <h1 class="text-center">Choose a Pokemon!</h1>
-        <div id="pokemon-choose"></div>
-        <div id="pokemon-foe">
-            <div id="pokemon-opponent-stats"></div>
-            <div id="pokemon-opponent"></div>
-            <div id="pokemon-opponent-attack"></div>
+    <div class="container">
+        <div class="counters">
+            <p>Score:
+                <span class="wins">-</span>
+                <span class="losses">-</span>
+            </p>
         </div>
-        <div id="pokemon-mine">
-            <div id="pokemon-stats"></div>
-            <div id="pokemon-chosen"></div>
-            <div id="pokemon-attack"></div>
+        <div>
+            <h1 class="text-center">Choose a Pokemon!</h1>
         </div>
+        <div id="center-stage1">
 
+            <div id="pokemon-choose"></div>
+        </div>
+        <div id="center-stage2">
+
+            <div id="pokemon-foe">
+                <div id="pokemon-opponent-stats"></div>
+                <div id="pokemon-opponent"></div>
+                <div id="pokemon-opponent-attack"></div>
+            </div>
+
+            <div id="pokemon-mine">
+                <div id="pokemon-stats"></div>
+                <div id="pokemon-chosen"></div>
+                <div id="pokemon-attack"></div>
+            </div>
+        </div>
+        <div id="pokemon-info"></div>
     </div>
-    <div id="pokemon-info"></div>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script type="text/javascript" src="./assets/javascript/pokemonList.js"></script>
     <script type="text/javascript" src="./assets/javascript/games.js"></script>
 </body>
 

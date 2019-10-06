@@ -2,63 +2,12 @@ $(document).ready(function () {
     // const hello = require('./pokemon.js')
     //READY TO PLAY
     console.log("jQuery Ready!");
+    // console.log(allPokemon)
     let wins = 0;
     let losses = 0;
     let genNumber;
     let totalVal = 0;
 
-    //pokemonObj has all the pokemon and their stats
-    let pokemonObj =
-    {
-        bulbasaur: {
-            name: 'Bulbasaur',
-            kdex: 1,
-            type: 'grass',
-            hp: 60,
-            attacks: [
-                {
-                    attackName: 'Vine Whip',
-                    damage: 30
-                },
-                {
-                    attackName: 'Tackle',
-                    damage: 20
-                }
-            ]
-        },
-        charmander: {
-            name: 'Charmander',
-            kdex: 3,
-            type: 'fire',
-            hp: 65,
-            attacks: [
-                {
-                    attackName: 'Scratch',
-                    damage: 10
-                },
-                {
-                    attackName: 'Ember',
-                    damage: 40
-                }
-            ]
-        },
-        squirtle: {
-            name: 'Squirtle',
-            kdex: 7,
-            type: 'water',
-            hp: 50,
-            attacks: [
-                {
-                    attackName: 'Tackle',
-                    damage: 20
-                },
-                {
-                    attackName: 'Water Gun',
-                    damage: 40
-                }
-            ]
-        }
-    };
 
     // a list of the order i'd like the pokmeon to render.
     let pkmnToRender = [
@@ -68,20 +17,26 @@ $(document).ready(function () {
     ];
 
     //used to create pokmeon based on name of pokemon
-    function jqCreateImgPkmn(name, classAni, classSpeed, className = '') {
+    function jqCreateImgPkmn(name, classAni, classSpeed, className = '', className2 = '') {
         let pkmnImg = $(`<img src="assets/images/${name.toLowerCase()}.png" id="${name}" 
-        class="pokemon animated ${classAni} ${classSpeed} ${className}" alt="${name}">`);
+        class="animated ${classAni} ${classSpeed} ${className} ${className2}" alt="${name}">`);
         return pkmnImg;
     }
     //centers pokemon for the first screen ie choose a pokemon
-    function renderChoosePokemon(arr, idFriendOrFoe, classAni, classSpeed, className = '') {
+    function renderChoosePokemon(arr, location, classAni, classSpeed, className = '', className2 = '') {
         // Will have the following animation characteristics: bounce faster
-        arr.map(name => $(`#${idFriendOrFoe}`).append(jqCreateImgPkmn(name, classAni, classSpeed, className)));
+        arr.map(name => $(`#${location}`)
+            .append(
+                jqCreateImgPkmn(
+                    name, classAni, classSpeed, className, className2
+                )
+            )
+        );
     }
 
     function pokemonChosen(idText, chosenBool) {
         //uses a mouseover. added the 'infinite' addition in order to activate the animation.
-        $('.pokemon').on('mouseover', function () {
+        $('.pokemon-to-choose').on('mouseover', function () {
             let whichPokemon = $(this).attr("id");
 
             // todo for adding text show stats of pokemon.. i guess.
@@ -91,7 +46,7 @@ $(document).ready(function () {
             $('#' + whichPokemon).addClass('infinite');
         });
         // removes infinite animation at 'mouseout'
-        $('.pokemon').on('mouseout', function () {
+        $('.pokemon-to-choose').on('mouseout', function () {
             let whichPokemon = $(this).attr("id");
             $('#' + whichPokemon).removeClass('infinite');
         });
@@ -99,12 +54,15 @@ $(document).ready(function () {
 
     function pokemonChosenClick(classClick, idText, callback, chosenBool) {
         $(classClick).on('click', function () {
+            console.log('i was clicked')
             let whichPokemon = $(this).attr("id");
             $('#' + whichPokemon).removeClass('infinite');
+            
+            $(classClick).parent().empty();
+
             if (!chosenBool) {
                 $(idText).text(`You chose ${whichPokemon}!`);
                 if (typeof callback === 'function') {
-                    console.log(callback)
                     callback(whichPokemon);
                 }
             }
@@ -113,32 +71,33 @@ $(document).ready(function () {
     }
 
     function renderFight(whichPokemon) {
-        console.log(whichPokemon);
+
         $("#pokemon-opponent").html(jqCreateImgPkmn(whichPokemon, 'bounce', 'fast', 'infinite'));
     };
 
     function renderStats(whichPokemon, attacksID) {
         const opponent = pokemonObj[whichPokemon.toLowerCase()];
-        console.log(opponent);
-        opponent.attacks.map((attack,i) => { $(`#${attacksID}`).append(`<p>${attack.attackName}<p>`) })
+
+        opponent.attacks.map((attack, i) => { $(`#${attacksID}`).append(`<p>${attack.attackName}<p>`) })
     }
 
     function renderBattle(pickedPkmn, callback) {
-        $(".text-center").html("Let's Battle!! - Choose an Opponent.");
-        console.log(pickedPkmn)
-        $("#pokemon-chosen").html(jqCreateImgPkmn(pickedPkmn, 'pulse', 'fast', 'infinite'));
-        renderStats(pickedPkmn,'pokemon-attack')
+        $(".text-center").html("Choose an Opponent.");
+
+        $("#pokemon-chosen").html(jqCreateImgPkmn(pickedPkmn, 'pulse', 'fast', 'pokemon-i-chose', 'infinite'));
+        // renderStats(pickedPkmn,'pokemon-attack');
         // newPkmnToRender will remove the chosen pokemon from the pkmnToRender
         pkmnToRender = pkmnToRender.filter(pkmn => pkmn !== pickedPkmn);
-        renderChoosePokemon(pkmnToRender, 'pokemon-opponent', 'tada', 'fast', 'pkmn-opponent');
+        console.log(pkmnToRender);
+        renderChoosePokemon(pkmnToRender, 'pokemon-choose', 'tada', 'fast', 'pokemon-to-choose');
         pokemonChosen('#pokemon-info');
         pokemonChosenClick('.pkmn-opponent', '#pokemon-info', renderFight, false);
 
     }
 
     //First Render Pokemon onto 'center-stage1 using the designated list.
-    renderChoosePokemon(pkmnToRender, 'pokemon-chosen', 'bounce', 'faster');
+    renderChoosePokemon(pkmnToRender, 'pokemon-choose', 'bounce', 'faster', 'pokemon-to-choose');
     // pokemonChosen - handles mouseOut, mouseIn animation
     pokemonChosen('#pokemon-info');
-    pokemonChosenClick('.pokemon', '#pokemon-info', renderBattle);
+    pokemonChosenClick('.pokemon-to-choose', '#pokemon-info', renderBattle);
 });

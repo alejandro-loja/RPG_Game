@@ -4,47 +4,94 @@
 }
 
 body {
-  font-family: 'Cutive Mono', monospace;
+  font-family: "Cutive Mono", monospace;
+  background-color: #0ebe66;
+}
+
+.container {
+  position: relative;
   border: 1px red solid;
   width: 800px;
   height: 600px;
   margin: auto;
-  background-color: #0dce7e;
   background-image: url("../../assets/images/battle_background.png");
   background-size: cover;
   background-repeat: no-repeat;
 }
 
-#pokemon-chosen {
-  border: 1px red solid;
-  text-transform: capitalize;
+#center-stage1,
+#center-stage2 {
+  border: 1px orange dotted;
+}
+
+#center-stage1 {
+  text-align: center;
+}
+
+.text-center {
+  font-size: 2.5em;
+  color: #ffd61e;
+  width: 800px;
+  text-align: center;
+  height: 60px;
+  border: 1px black solid;
+  margin-top: 1em;
+  margin-bottom: 3em;
+}
+
+#center-stage2 {
+  background-color: grey;
 }
 
 .counters {
+  border-radius: 5px;
   position: fixed;
-  left: 10px;
+  left: 1em;
   float: left;
-  background-color: #eee;
+  background-color: rgba(238, 238, 238, 0.9);
   padding: 10px;
 }
 
-.pokemon {
+.pokemon-choose {
+  display: -ms-grid;
+  display: grid;
+  grid-auto-flow: column;
+  grid-column-gap: 30px;
+}
+
+.pokemon-i-chose {
+  position: absolute;
+  left: 10%;
+  bottom: 20%;
+  margin: 2px;
+  width: 180px;
+  border: 1px red solid;
+}
+
+.pkmn-opponent {
   margin: 1px;
-  width: 80px;
-  /* you can use % */
+  width: 150px;
+  border: 1px red solid;
+}
+
+.pokemon-to-choose {
+  display: inline-block;
+  margin: 1px;
+  width: 100px;
+  border: 1px red solid;
 }
 
 #pokemon-info {
+  border-radius: 5px;
+  font-size: 1.2em;
+  margin: 0;
   position: absolute;
-  left: 9.5%;
-  bottom: 0;
+  left: 2%;
+  bottom: 1em;
   display: block;
-  width: 80%;
+  width: 90%;
   height: 100px;
-  background-color: #eee;
-}
-
-.test {
-  border: 2px blue solid;
+  padding: 1.5em;
+  background-color: rgba(238, 238, 238, 0.9);
 }
 /*# sourceMappingURL=style.css.map */

@@ -1,52 +1,103 @@
-*{
-    margin: 0;
-    padding: 0;
-}
-body {
-    font-family: 'Cutive Mono', monospace;
-    border: 1px red solid;
-    width: 800px;
-    height: 600px;
-    margin: auto;
-    background-color:rgb(13,206,126);
-    background-image: url("../../assets/images/battle_background.png");
-    background-size: cover;
-    background-repeat: no-repeat;
-  }
-  
-  #pokemon-chosen {
-    border: 1px red solid;
-    text-transform: capitalize;
-  }
-  
-  .counters {
-    position: fixed;
-    left: 10px;
-    float: left;
-    background-color: #eee;
-    padding: 10px;
-  }
-  
-  .pokemon {
-    margin: 1px;
-    width: 80px;
-    /* you can use % */
-  }
-  
-  #pokemon-info {
-    position: absolute;
-    left: 9.5%;
-    bottom: 0;
+$white-background: rgba(238, 238, 238, 0.9);
+$background: rgb(14, 190, 102);
 
-    display: block;
-    width: 80%;
-    height: 100px;
-    // margin: 0 10px;
-    // padding: 1em;
-    // text-align: center;
-    background-color: #eee;
-  }
-  
-  .test {
-    border: 2px blue solid;
-  }
+* {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: "Cutive Mono", monospace;
+  background-color: $background;
+
+}
+
+.container {
+  position: relative;
+  border: 1px red solid;
+  width: 800px;
+  height: 600px;
+  margin: auto;
+  background-image: url("../../assets/images/battle_background.png");
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+#center-stage1,
+#center-stage2 {
+  border: 1px orange dotted;
+}
+
+#center-stage1 {
+  text-align: center;
+}
+
+.text-center {
+  font-size: 2.5em;
+  color: rgb(255, 214, 30);
+  width: 800px;
+  text-align: center;
+  height: 60px;
+  border: 1px black solid;
+  margin-top: 1em;
+  margin-bottom: 3em;
+}
+
+#center-stage2 {
+  background-color: grey;
+}
+
+.counters {
+  border-radius: 5px;
+  position: fixed;
+  left: 1em;
+  float: left;
+  background-color: $white-background;
+  padding: 10px;
+}
+
+.pokemon-choose {
+  display: grid;
+  grid-auto-flow: column;
+  grid-column-gap: 30px;
+}
+
+.pokemon-i-chose {
+  // visibility:hidden;
+
+  position: absolute;
+  left: 10%;
+  bottom: 20%;
+  margin: 2px;
+  width: 180px;
+  border: 1px red solid;
+}
+
+.pkmn-opponent{
+  margin: 1px;
+  width: 150px;
+  border: 1px red solid;
+}
+
+.pokemon-to-choose {
+  display: inline-block;
+  margin: 1px;
+  width: 100px;
+  border: 1px red solid;
+}
+
+#pokemon-info {
+  border-radius: 5px;
+  font-size: 1.2em;
+  margin: 0;
+  position: absolute;
+  left: 2%;
+  bottom: 1em;
+
+  display: block;
+  width: 90%;
+  height: 100px;
+  // margin: 0 10px;
+  padding: 1.5em;
+  // text-align: center;
+  background-color: $white-background;
+}
