@@ -10,7 +10,6 @@ body {
 
 .container {
   position: relative;
-  border: 1px red solid;
   width: 800px;
   height: 600px;
   margin: auto;
@@ -60,18 +59,21 @@ body {
 }
 
 .pokemon-i-chose {
+  visibility: hidden;
   position: absolute;
   left: 10%;
   bottom: 20%;
   margin: 2px;
   width: 180px;
-  border: 1px red solid;
 }
 
 .pkmn-opponent {
-  margin: 1px;
-  width: 150px;
-  border: 1px red solid;
+  position: absolute;
+  right: 10%;
+  top: 15%;
+  margin: 2px;
+  width: 120px;
+  border: 1px gray solid;
 }
 
 .pokemon-to-choose {

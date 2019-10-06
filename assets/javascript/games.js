@@ -19,7 +19,7 @@ $(document).ready(function () {
     //used to create pokmeon based on name of pokemon
     function jqCreateImgPkmn(name, classAni, classSpeed, className = '', className2 = '') {
         let pkmnImg = $(`<img src="assets/images/${name.toLowerCase()}.png" id="${name}" 
-        class="animated ${classAni} ${classSpeed} ${className} ${className2}" alt="${name}">`);
+        class="test animated  ${classAni} ${classSpeed} ${className} ${className2}" alt="${name}">`);
         return pkmnImg;
     }
     //centers pokemon for the first screen ie choose a pokemon
@@ -72,7 +72,7 @@ $(document).ready(function () {
 
     function renderFight(whichPokemon) {
 
-        $("#pokemon-opponent").html(jqCreateImgPkmn(whichPokemon, 'bounce', 'fast', 'infinite'));
+        $("#pokemon-opponent").html(jqCreateImgPkmn(whichPokemon, 'bounce', 'fast', 'infinite', 'pkmn-opponent'));
     };
 
     function renderStats(whichPokemon, attacksID) {
@@ -91,7 +91,7 @@ $(document).ready(function () {
         console.log(pkmnToRender);
         renderChoosePokemon(pkmnToRender, 'pokemon-choose', 'tada', 'fast', 'pokemon-to-choose');
         pokemonChosen('#pokemon-info');
-        pokemonChosenClick('.pkmn-opponent', '#pokemon-info', renderFight, false);
+        pokemonChosenClick('.pokemon-to-choose', '#pokemon-info', renderFight, false);
 
     }
 
