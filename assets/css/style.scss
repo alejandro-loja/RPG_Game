@@ -10,7 +10,10 @@ body {
   font-family: "Cutive Mono", monospace;
   background-color: $background;
 }
-
+ 
+ul{
+  list-style-type: none;
+}
 .container {
   position: relative;
   // border: 1px red solid;
@@ -31,7 +34,10 @@ body {
 }
 
 .text-center {
+  font-family: Arial, Helvetica, sans-serif;
   font-size: 2.5em;
+  letter-spacing: 0.15em;
+  text-shadow: 6px 2px 5px rgb(39, 39, 39);
   color: rgb(255, 214, 30);
   width: 800px;
   text-align: center;
@@ -98,11 +104,38 @@ body {
   left: 2%;
   bottom: 1em;
 
-  display: block;
+  display: flex;
   width: 90%;
   height: 100px;
   // margin: 0 10px;
   padding: 1.5em;
   // text-align: center;
   background-color: $white-background;
+}
+
+#info,#fight{
+  word-wrap: break-word;
+}
+#info{
+  border: 1px blue solid;
+  width: 40%;
+  height: 100%;
+}
+#fight{
+  display: flexbox;
+  flex-wrap: wrap;
+  align-content: center;
+  top: 0;
+  border: 1px blue solid;
+  width: 60%;
+  height: 100%;
+}
+
+#fight > ul {
+  background-color: #f1f1f1;
+  width: 100px;
+  margin: 10px;
+  text-align: center;
+  line-height: 75px;
+  font-size: 30px;
 }

@@ -54,14 +54,17 @@ $(document).ready(function () {
 
     function pokemonChosenClick(classClick, idText, callback, chosenBool) {
         $(classClick).on('click', function () {
-            console.log('i was clicked')
             let whichPokemon = $(this).attr("id");
             $('#' + whichPokemon).removeClass('infinite');
-            
+            // clear out current pokemon
             $(classClick).parent().empty();
-
             if (!chosenBool) {
                 $(idText).text(`You chose ${whichPokemon}!`);
+                if (typeof callback === 'function') {
+                    callback(whichPokemon);
+                }
+            } else {
+                $(idText).text(`Opponent ${whichPokemon} appeared!`);
                 if (typeof callback === 'function') {
                     callback(whichPokemon);
                 }
@@ -71,8 +74,9 @@ $(document).ready(function () {
     }
 
     function renderFight(whichPokemon) {
-
         $("#pokemon-opponent").html(jqCreateImgPkmn(whichPokemon, 'bounce', 'fast', 'infinite', 'pkmn-opponent'));
+        makePkmnVis('pokemon-i-chose');
+        $(".text-center").html("Let's Battle!");
     };
 
     function renderStats(whichPokemon, attacksID) {
@@ -82,22 +86,34 @@ $(document).ready(function () {
     }
 
     function renderBattle(pickedPkmn, callback) {
+        // Render chosen pokemon
         $(".text-center").html("Choose an Opponent.");
-
         $("#pokemon-chosen").html(jqCreateImgPkmn(pickedPkmn, 'pulse', 'fast', 'pokemon-i-chose', 'infinite'));
-        // renderStats(pickedPkmn,'pokemon-attack');
-        // newPkmnToRender will remove the chosen pokemon from the pkmnToRender
+        
+        // Filter remaining pokemon
         pkmnToRender = pkmnToRender.filter(pkmn => pkmn !== pickedPkmn);
         console.log(pkmnToRender);
+        // Add animation
         renderChoosePokemon(pkmnToRender, 'pokemon-choose', 'tada', 'fast', 'pokemon-to-choose');
-        pokemonChosen('#pokemon-info');
-        pokemonChosenClick('.pokemon-to-choose', '#pokemon-info', renderFight, false);
+        //Add mouseover/out
+        pokemonChosen('#info');
+        //Add click then function
+        pokemonChosenClick('.pokemon-to-choose', '#info', renderFight, true);
 
     }
 
+    function makePkmnVis (className) {
+        $(`.${className}`).css({'visibility': 'visible'});
+    }
+
+
+
+
+
+    
     //First Render Pokemon onto 'center-stage1 using the designated list.
     renderChoosePokemon(pkmnToRender, 'pokemon-choose', 'bounce', 'faster', 'pokemon-to-choose');
     // pokemonChosen - handles mouseOut, mouseIn animation
-    pokemonChosen('#pokemon-info');
-    pokemonChosenClick('.pokemon-to-choose', '#pokemon-info', renderBattle);
+    pokemonChosen('#info');
+    pokemonChosenClick('.pokemon-to-choose', '#info', renderBattle);
 });
