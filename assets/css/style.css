@@ -91,6 +91,8 @@ ul {
 }
 
 #pokemon-info {
+  -webkit-box-sizing: content-box;
+          box-sizing: content-box;
   border-radius: 5px;
   font-size: 1.2em;
   margin: 0;
@@ -123,7 +125,7 @@ ul {
   -ms-flex-line-pack: center;
       align-content: center;
   top: 0;
-  border: 1px blue solid;
+  border: 1px black dashed;
   width: 60%;
   height: 100%;
 }
@@ -135,5 +137,10 @@ ul {
   text-align: center;
   line-height: 75px;
   font-size: 30px;
+}
+
+#fight li:hover {
+  font-weight: bold;
+  text-shadow: 0px 6px 14px rgba(0, 0, 0, 0.4);
 }
 /*# sourceMappingURL=style.css.map */
