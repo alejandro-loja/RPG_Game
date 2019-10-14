@@ -67,10 +67,16 @@ $(document).ready(function () {
         });
     };
 
-    function attackChosenClick(classClick) {
+    function attackChosenClick(classClick, pickedPkmn) {
         $(`.${classClick}`).on('click', function () {
-
             let whichAttack = $(this).text();
+            const pkmnAttackArr = pokemonObj[pickedPkmn.toLowerCase()].attacks;
+            pkmnAttackArr.map((attack, i)=> {
+                if (attack.attackName === whichAttack){
+                    console.log(attack.damage);
+                }
+            })
+            
             console.log(whichAttack);
         })
     };
@@ -80,7 +86,7 @@ $(document).ready(function () {
         makePkmnVis('pokemon-i-chose');
         $(".text-center").html("Let's Battle!");
         renderStats(pickedPkmn, 'fight');
-        attackChosenClick("my-attack");
+        attackChosenClick("my-attack", pickedPkmn);
         makeStatsVisAndFill('pokemon-opponent-stats',false, whichPokemon.toLowerCase());
         makeStatsVisAndFill('pokemon-stats',true, pickedPkmn.toLowerCase());
     };
