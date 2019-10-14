@@ -6,6 +6,7 @@ let pokemonObj =
         kdex: 1,
         type: 'grass',
         hp: 60,
+        level: 5,
         attacks: [
             {
                 attackName: 'Vine Whip',
@@ -22,6 +23,7 @@ let pokemonObj =
         kdex: 3,
         type: 'fire',
         hp: 65,
+        level: 5,
         attacks: [
             {
                 attackName: 'Scratch',
@@ -38,6 +40,7 @@ let pokemonObj =
         kdex: 7,
         type: 'water',
         hp: 50,
+        level: 5,
         attacks: [
             {
                 attackName: 'Tackle',

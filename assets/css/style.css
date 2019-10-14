@@ -41,8 +41,7 @@ ul {
   text-align: center;
   height: 60px;
   border: 1px black solid;
-  margin-top: 1em;
-  margin-bottom: 3em;
+  padding-top: 0.5em;
 }
 
 #center-stage2 {
@@ -80,7 +79,6 @@ ul {
   top: 15%;
   margin: 2px;
   width: 120px;
-  border: 1px gray solid;
 }
 
 .pokemon-to-choose {
@@ -108,7 +106,8 @@ ul {
   background-color: rgba(238, 238, 238, 0.9);
 }
 
-#info, #fight {
+#info,
+#fight {
   word-wrap: break-word;
 }
 
@@ -139,8 +138,34 @@ ul {
   font-size: 30px;
 }
 
-#fight li:hover {
+.my-attack:hover {
   font-weight: bold;
   text-shadow: 0px 6px 14px rgba(0, 0, 0, 0.4);
+}
+
+#pokemon-foe,
+#pokemon-mine {
+  border: red 1px dotted;
+}
+
+#pokemon-opponent-stats,
+#pokemon-stats {
+  visibility: hidden;
+  padding: 0.5em;
+  background-color: rgba(238, 238, 238, 0.9);
+}
+
+#pokemon-opponent-stats {
+  top: 20%;
+  left: 3%;
+  position: absolute;
+  width: 25%;
+}
+
+#pokemon-stats {
+  position: absolute;
+  right: 5%;
+  bottom: 30%;
+  width: 30%;
 }
 /*# sourceMappingURL=style.css.map */

@@ -26,14 +26,9 @@ $(document).ready(function () {
     function renderChoosePokemon(arr, location, classAni, classSpeed, className = '', className2 = '') {
         // Will have the following animation characteristics: bounce faster
         arr.map(name => $(`#${location}`)
-            .append(
-                jqCreateImgPkmn(
-                    name, classAni, classSpeed, className, className2
-                )
-            )
+            .append(jqCreateImgPkmn(name, classAni, classSpeed, className, className2))
         );
     }
-
     function pokemonChosen(idText, chosenBool) {
         //uses a mouseover. added the 'infinite' addition in order to activate the animation.
         $('.pokemon-to-choose').on('mouseover', function () {
@@ -52,7 +47,7 @@ $(document).ready(function () {
         });
     }
 
-    function pokemonChosenClick(classClick, idText, callback, chosenBool) {
+    function pokemonChosenClick(classClick, idText, callback, chosenBool, pickedPkmn = null) {
         $(classClick).on('click', function () {
             let whichPokemon = $(this).attr("id");
             $('#' + whichPokemon).removeClass('infinite');
@@ -66,30 +61,40 @@ $(document).ready(function () {
             } else {
                 $(idText).text(`Opponent ${whichPokemon} appeared!`);
                 if (typeof callback === 'function') {
-                    callback(whichPokemon);
+                    callback(whichPokemon, pickedPkmn);
                 }
             }
         });
+    };
 
-    }
+    function attackChosenClick(classClick) {
+        $(`.${classClick}`).on('click', function () {
 
-    function renderFight(whichPokemon) {
+            let whichAttack = $(this).text();
+            console.log(whichAttack);
+        })
+    };
+
+    function renderFight(whichPokemon, pickedPkmn) {
         $("#pokemon-opponent").html(jqCreateImgPkmn(whichPokemon, 'bounce', 'fast', 'infinite', 'pkmn-opponent'));
         makePkmnVis('pokemon-i-chose');
         $(".text-center").html("Let's Battle!");
+        renderStats(pickedPkmn, 'fight');
+        attackChosenClick("my-attack");
+        makeStatsVisAndFill('pokemon-opponent-stats',false, whichPokemon.toLowerCase());
+        makeStatsVisAndFill('pokemon-stats',true, pickedPkmn.toLowerCase());
     };
 
     function renderStats(whichPokemon, attacksID) {
-        const opponent = pokemonObj[whichPokemon.toLowerCase()];
-
-        opponent.attacks.map((attack, i) => { $(`#${attacksID}`).append(`<p>${attack.attackName}<p>`) })
+        const myAttacks = pokemonObj[whichPokemon.toLowerCase()];
+        myAttacks.attacks.map((attack, i) => { $(`#${attacksID}`).append(`<li class="my-attack">${attack.attackName}<li>`) })
     }
 
     function renderBattle(pickedPkmn, callback) {
         // Render chosen pokemon
         $(".text-center").html("Choose an Opponent.");
         $("#pokemon-chosen").html(jqCreateImgPkmn(pickedPkmn, 'pulse', 'fast', 'pokemon-i-chose', 'infinite'));
-        
+
         // Filter remaining pokemon
         pkmnToRender = pkmnToRender.filter(pkmn => pkmn !== pickedPkmn);
         console.log(pkmnToRender);
@@ -98,19 +103,25 @@ $(document).ready(function () {
         //Add mouseover/out
         pokemonChosen('#info');
         //Add click then function
-        pokemonChosenClick('.pokemon-to-choose', '#info', renderFight, true);
-
+        pokemonChosenClick('.pokemon-to-choose', '#info', renderFight, true, pickedPkmn);
     }
 
-    function makePkmnVis (className) {
-        $(`.${className}`).css({'visibility': 'visible'});
+    function makePkmnVis(className) {
+        $(`.${className}`).css({ 'visibility': 'visible' });
+    }
+    function makeStatsVisAndFill(id, mineOrFoe = true, aPkmn) {
+        console.log(aPkmn)
+        let prefix = mineOrFoe ? 'mine' : 'foe';
+        let idName = `${prefix}-name`;
+        let idLevel = `${prefix}-level`;
+        let idHp = `${prefix}-hp`;
+        let idArray = [idName,idLevel,idHp];
+        let {name,level,hp} = pokemonObj[aPkmn]
+        let statArray = [name,level,hp];
+        idArray.map((stat, i)=>$(`#${stat}`).text(`${statArray[i]}`));
+        $(`#${id}`).css({ 'visibility': 'visible' });
     }
 
-
-
-
-
-    
     //First Render Pokemon onto 'center-stage1 using the designated list.
     renderChoosePokemon(pkmnToRender, 'pokemon-choose', 'bounce', 'faster', 'pokemon-to-choose');
     // pokemonChosen - handles mouseOut, mouseIn animation
