@@ -77,7 +77,7 @@ $(document).ready(function () {
                 }
             })
             
-            console.log(whichAttack);
+            // console.log(whichAttack);
         })
     };
 

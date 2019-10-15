@@ -22,13 +22,11 @@ ul {
   background-repeat: no-repeat;
 }
 
-#center-stage1,
-#center-stage2 {
-  border: 1px orange dotted;
-}
-
 #center-stage1 {
   text-align: center;
+  position: absolute;
+  top: 30%;
+  right: 32%;
 }
 
 .text-center {
@@ -40,7 +38,6 @@ ul {
   width: 800px;
   text-align: center;
   height: 60px;
-  border: 1px black solid;
   padding-top: 0.5em;
 }
 
@@ -58,10 +55,8 @@ ul {
 }
 
 .pokemon-choose {
-  display: -ms-grid;
-  display: grid;
-  grid-auto-flow: column;
-  grid-column-gap: 30px;
+  display: absolute;
+  bottom: 0;
 }
 
 .pokemon-i-chose {
@@ -76,7 +71,7 @@ ul {
 .pkmn-opponent {
   position: absolute;
   right: 10%;
-  top: 15%;
+  top: 20%;
   margin: 2px;
   width: 120px;
 }
@@ -85,7 +80,6 @@ ul {
   display: inline-block;
   margin: 1px;
   width: 100px;
-  border: 1px red solid;
 }
 
 #pokemon-info {
@@ -112,17 +106,12 @@ ul {
 }
 
 #info {
-  border: 1px blue solid;
+  border: 1px grey solid;
   width: 40%;
   height: 100%;
 }
 
 #fight {
-  display: flexbox;
-  -ms-flex-wrap: wrap;
-      flex-wrap: wrap;
-  -ms-flex-line-pack: center;
-      align-content: center;
   top: 0;
   border: 1px black dashed;
   width: 60%;
@@ -143,13 +132,10 @@ ul {
   text-shadow: 0px 6px 14px rgba(0, 0, 0, 0.4);
 }
 
-#pokemon-foe,
-#pokemon-mine {
-  border: red 1px dotted;
-}
-
 #pokemon-opponent-stats,
 #pokemon-stats {
+  border: 1px black solid;
+  border-radius: 20px;
   visibility: hidden;
   padding: 0.5em;
   background-color: rgba(238, 238, 238, 0.9);
@@ -157,15 +143,39 @@ ul {
 
 #pokemon-opponent-stats {
   top: 20%;
-  left: 3%;
+  left: 5%;
   position: absolute;
   width: 25%;
 }
 
+#pokemon-opponent-stats div {
+  margin-bottom: 0.2em;
+}
+
 #pokemon-stats {
   position: absolute;
-  right: 5%;
-  bottom: 30%;
+  right: 2%;
+  bottom: 32%;
   width: 30%;
+}
+
+#pokemon-stats div {
+  margin-bottom: 0.35em;
+}
+
+#foe-healthbar-cont, #mine-healthbar-cont {
+  background: #555;
+  border-radius: 9px;
+  height: 8px;
+  padding: 3px;
+}
+
+#foe-healthbar-cont::after, #mine-healthbar-cont::after {
+  content: '';
+  display: block;
+  background: 1px #16b800;
+  width: 10%;
+  height: 100%;
+  border-radius: 5px;
 }
 /*# sourceMappingURL=style.css.map */
