@@ -49,7 +49,7 @@ $(document).ready(function () {
             $('#' + whichPokemon).removeClass('infinite');
         });
     }
-    function updateinfo(message,idText='#info'){
+    function updateinfo(message, idText = '#info') {
         $(idText).text(message);
     }
     function pokemonChosenClick(classClick, idText, callback, chosenBool, pickedPkmn = null) {
@@ -78,31 +78,39 @@ $(document).ready(function () {
             let currentAttack;
             let whichAttack = $(this).text();
             const pkmnAttackArr = pokemonObj[pickedPkmn.toLowerCase()].attacks;
-            pkmnAttackArr.map((attack, i)=> {
-                if (attack.attackName === whichAttack){
+            pkmnAttackArr.map((attack, i) => {
+                if (attack.attackName === whichAttack) {
                     currentAttack = attack.attackName;
-                     damageToFoe = attack.damage;
+                    damageToFoe = attack.damage;
                 }
             })
             const foeOriginalHp = pokemonObj[whichPokemon.toLowerCase()].hp;
-            foePkmnHp =  updatehp('foe-healthbar',damageToFoe,foePkmnHp,foeOriginalHp);
-            updateinfo(`${pickedPkmn} used ${currentAttack.toLowerCase()}!` )
+            foePkmnHp = updatehp('foe-healthbar', damageToFoe, foePkmnHp, foeOriginalHp);
+            updateinfo(`${pickedPkmn} used ${currentAttack.toLowerCase()}!`);
+            setTimeout(function () {foeAttacks(whichPokemon)},2000);
 
             // console.log(whichAttack);
         })
     };
 
+    function foeAttacks(whichPokemon) {
+        const currentAttack = 'blank :(';
+
+        updateinfo(`Enemy ${whichPokemon} used ${currentAttack.toLowerCase()}!`);
+    }
+
+
     function renderFight(whichPokemon, pickedPkmn) {
         minePkmnHp = pokemonObj[pickedPkmn.toLowerCase()].hp;
         foePkmnHp = pokemonObj[whichPokemon.toLowerCase()].hp;
-        console.log(minePkmnHp,foePkmnHp)
+        console.log(minePkmnHp, foePkmnHp)
         $("#pokemon-opponent").html(jqCreateImgPkmn(whichPokemon, 'bounce', 'fast', 'infinite', 'pkmn-opponent'));
         makePkmnVis('pokemon-i-chose');
         $(".text-center").html("Let's Battle!");
         renderStats(pickedPkmn, 'fight');
         attackChosenClick("my-attack", pickedPkmn, whichPokemon);
-        makeStatsVisAndFill('pokemon-opponent-stats',false, whichPokemon.toLowerCase());
-        makeStatsVisAndFill('pokemon-stats',true, pickedPkmn.toLowerCase());
+        makeStatsVisAndFill('pokemon-opponent-stats', false, whichPokemon.toLowerCase());
+        makeStatsVisAndFill('pokemon-stats', true, pickedPkmn.toLowerCase());
     };
 
     function renderStats(whichPokemon, attacksID) {
@@ -131,10 +139,10 @@ $(document).ready(function () {
     }
 
     function updatehp(idHealthBar, damage, hp, originalHp, friend = false) {
-        let newHp =  hp - damage;
-        const percent = (newHp/originalHp)*100;
+        let newHp = hp - damage;
+        const percent = (newHp / originalHp) * 100;
         console.log(percent);
-        $(`#${idHealthBar}>div`).css({'width': `${percent}%`});
+        $(`#${idHealthBar}>div`).css({ 'width': `${percent}%` });
         return newHp;
     }
 
@@ -144,10 +152,10 @@ $(document).ready(function () {
         let idName = `${prefix}-name`;
         let idLevel = `${prefix}-level`;
         let idHp = `${prefix}-hp`;
-        let idArray = [idName,idLevel,idHp];
-        let {name,level,hp} = pokemonObj[aPkmn];
-        let statArray = [name,level,hp];
-        idArray.map((stat, i)=>$(`#${stat}`).text(`${statArray[i]}`));
+        let idArray = [idName, idLevel, idHp];
+        let { name, level, hp } = pokemonObj[aPkmn];
+        let statArray = [name, level, hp];
+        idArray.map((stat, i) => $(`#${stat}`).text(`${statArray[i]}`));
         $(`#${id}`).css({ 'visibility': 'visible' });
     }
 
