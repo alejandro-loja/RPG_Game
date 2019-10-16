@@ -87,16 +87,23 @@ $(document).ready(function () {
             const foeOriginalHp = pokemonObj[whichPokemon.toLowerCase()].hp;
             foePkmnHp = updatehp('foe-healthbar', damageToFoe, foePkmnHp, foeOriginalHp);
             updateinfo(`${pickedPkmn} used ${currentAttack.toLowerCase()}!`);
-            setTimeout(function () {foeAttacks(whichPokemon)},2000);
-
+            makePkmnVis('#fight>li', false);
+            setTimeout(function () { foeAttacks(whichPokemon, pickedPkmn) }, 2000);
             // console.log(whichAttack);
         })
     };
 
-    function foeAttacks(whichPokemon) {
-        const currentAttack = 'blank :(';
+    function foeAttacks(whichPokemon, pickedPkmn) {
+        const listOfAttacks = pokemonObj[whichPokemon.toLowerCase()].attacks;
+        const numAttacks = listOfAttacks.length;
+        let currentAttack = listOfAttacks[Math.floor(Math.random() * numAttacks)];
+        currentAttackName = currentAttack.attackName;
+        currentAttackDamage = currentAttack.damage;
+        const mineOriginalHp = pokemonObj[pickedPkmn.toLowerCase()].hp;
+        minePkmnHp = updatehp('mine-healthbar', currentAttackDamage, minePkmnHp, mineOriginalHp);
+        updateinfo(`Enemy ${whichPokemon} used ${currentAttackName.toLowerCase()}! Does ${currentAttackDamage} damage`);
+        makePkmnVis('#fight>li', true);
 
-        updateinfo(`Enemy ${whichPokemon} used ${currentAttack.toLowerCase()}!`);
     }
 
 
@@ -105,7 +112,7 @@ $(document).ready(function () {
         foePkmnHp = pokemonObj[whichPokemon.toLowerCase()].hp;
         console.log(minePkmnHp, foePkmnHp)
         $("#pokemon-opponent").html(jqCreateImgPkmn(whichPokemon, 'bounce', 'fast', 'infinite', 'pkmn-opponent'));
-        makePkmnVis('pokemon-i-chose');
+        makePkmnVis('.pokemon-i-chose');
         $(".text-center").html("Let's Battle!");
         renderStats(pickedPkmn, 'fight');
         attackChosenClick("my-attack", pickedPkmn, whichPokemon);
@@ -134,14 +141,18 @@ $(document).ready(function () {
         pokemonChosenClick('.pokemon-to-choose', '#info', renderFight, true, pickedPkmn);
     }
 
-    function makePkmnVis(className) {
-        $(`.${className}`).css({ 'visibility': 'visible' });
+    function makePkmnVis(classIdName, see = true) {
+        if (see) {
+            $(`${classIdName}`).css({ 'visibility': 'visible' });
+        } else {
+            $(`${classIdName}`).css({ 'visibility': 'hidden' });
+        }
     }
 
     function updatehp(idHealthBar, damage, hp, originalHp, friend = false) {
         let newHp = hp - damage;
         const percent = (newHp / originalHp) * 100;
-        console.log(percent);
+        console.log(originalHp, hp, percent);
         $(`#${idHealthBar}>div`).css({ 'width': `${percent}%` });
         return newHp;
     }
