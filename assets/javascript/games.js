@@ -89,7 +89,6 @@ $(document).ready(function () {
             updateinfo(`${pickedPkmn} used ${currentAttack.toLowerCase()}!`);
             makePkmnVis('#fight>li', false);
             setTimeout(function () { foeAttacks(whichPokemon, pickedPkmn) }, 2000);
-            // console.log(whichAttack);
         })
     };
 
@@ -152,6 +151,16 @@ $(document).ready(function () {
     function updatehp(idHealthBar, damage, hp, originalHp, friend = false) {
         let newHp = hp - damage;
         const percent = (newHp / originalHp) * 100;
+        //changes color of hp bar
+        const newColor = (id,color) => $(`#${id}>div`).css({ 'background-color': color });
+        
+        if (percent <= 0) {
+            console.log('\nYOUR DEAD\n')
+        } else if (percent < 15) {
+            newColor(idHealthBar,'red');
+        } else if (percent < 50) {
+            newColor(idHealthBar,'orange');
+        }
         console.log(originalHp, hp, percent);
         $(`#${idHealthBar}>div`).css({ 'width': `${percent}%` });
         return newHp;

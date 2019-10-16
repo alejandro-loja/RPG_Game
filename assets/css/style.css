@@ -46,6 +46,7 @@ ul {
 }
 
 .counters {
+  z-index: 100;
   border-radius: 5px;
   position: fixed;
   left: 1em;
@@ -106,14 +107,14 @@ ul {
 }
 
 #info {
-  border: 1px grey solid;
+  border: 1px #ccc solid;
   width: 40%;
   height: 100%;
 }
 
 #fight {
   top: 0;
-  border: 1px black dashed;
+  border: 2px black dashed;
   width: 60%;
   height: 100%;
 }
@@ -125,6 +126,10 @@ ul {
   text-align: center;
   line-height: 75px;
   font-size: 30px;
+}
+
+#fight li {
+  padding-left: 0.5em;
 }
 
 .my-attack:hover {
@@ -163,14 +168,16 @@ ul {
   margin-bottom: 0.35em;
 }
 
-#foe-healthbar, #mine-healthbar {
+#foe-healthbar,
+#mine-healthbar {
   background-color: #555;
   border-radius: 13px;
   /* (height of inner div) / 2 + padding */
   padding: 3px;
 }
 
-#foe-healthbar > div, #mine-healthbar > div {
+#foe-healthbar > div,
+#mine-healthbar > div {
   margin-bottom: 0;
   background-color: #00bb19;
   width: 100%;

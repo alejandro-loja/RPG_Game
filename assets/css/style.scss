@@ -49,6 +49,7 @@ ul {
 }
 
 .counters {
+  z-index: 100;
   border-radius: 5px;
   position: fixed;
   left: 1em;
@@ -106,24 +107,27 @@ ul {
   word-wrap: break-word;
 }
 #info {
-  border: 1px grey solid;
+  border: 1px #ccc solid;
   width: 40%;
   height: 100%;
 }
 #fight {
   top: 0;
-  border: 1px black dashed;
+  border: 2px black dashed;
   width: 60%;
   height: 100%;
-}
 
-#fight > ul {
-  background-color: #f1f1f1;
-  width: 100px;
-  margin: 10px;
-  text-align: center;
-  line-height: 75px;
-  font-size: 30px;
+  & > ul {
+    background-color: #f1f1f1;
+    width: 100px;
+    margin: 10px;
+    text-align: center;
+    line-height: 75px;
+    font-size: 30px;
+  }
+  & li {
+    padding-left: 0.5em;
+  }
 }
 
 .my-attack:hover {
@@ -138,7 +142,6 @@ ul {
   visibility: hidden;
   padding: 0.5em;
   background-color: $white-background;
-
 }
 
 #pokemon-opponent-stats {
@@ -161,15 +164,16 @@ ul {
   }
 }
 
-#foe-healthbar, #mine-healthbar{
+#foe-healthbar,
+#mine-healthbar {
   background-color: #555;
   border-radius: 13px;
   /* (height of inner div) / 2 + padding */
   padding: 3px;
 }
 
-
-#foe-healthbar>div, #mine-healthbar>div {
+#foe-healthbar > div,
+#mine-healthbar > div {
   margin-bottom: 0;
   background-color: rgb(0, 187, 25);
   width: 100%;
