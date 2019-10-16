@@ -163,19 +163,19 @@ ul {
   margin-bottom: 0.35em;
 }
 
-#foe-healthbar-cont, #mine-healthbar-cont {
-  background: #555;
-  border-radius: 9px;
-  height: 8px;
+#foe-healthbar, #mine-healthbar {
+  background-color: #555;
+  border-radius: 13px;
+  /* (height of inner div) / 2 + padding */
   padding: 3px;
 }
 
-#foe-healthbar-cont::after, #mine-healthbar-cont::after {
-  content: '';
-  display: block;
-  background: 1px #16b800;
-  width: 10%;
-  height: 100%;
-  border-radius: 5px;
+#foe-healthbar > div, #mine-healthbar > div {
+  margin-bottom: 0;
+  background-color: #00bb19;
+  width: 100%;
+  /* Adjust with JavaScript */
+  height: 10px;
+  border-radius: 10px;
 }
 /*# sourceMappingURL=style.css.map */

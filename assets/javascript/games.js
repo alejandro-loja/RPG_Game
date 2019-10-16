@@ -2,11 +2,14 @@ $(document).ready(function () {
     // const hello = require('./pokemon.js')
     //READY TO PLAY
     console.log("jQuery Ready!");
+    // $('#foe-healthbar>div').css({'width': '100%'});
     // console.log(allPokemon)
     let wins = 0;
     let losses = 0;
     let genNumber;
     let totalVal = 0;
+    let minePkmnHp = 0;
+    let foePkmnHp = 0;
 
 
     // a list of the order i'd like the pokmeon to render.
@@ -67,26 +70,32 @@ $(document).ready(function () {
         });
     };
 
-    function attackChosenClick(classClick, pickedPkmn) {
+    function attackChosenClick(classClick, pickedPkmn, whichPokemon) {
         $(`.${classClick}`).on('click', function () {
+            let damageToFoe;
             let whichAttack = $(this).text();
             const pkmnAttackArr = pokemonObj[pickedPkmn.toLowerCase()].attacks;
             pkmnAttackArr.map((attack, i)=> {
                 if (attack.attackName === whichAttack){
-                    console.log(attack.damage);
+                     damageToFoe = attack.damage;
                 }
             })
-            
+            const foeOriginalHp = pokemonObj[whichPokemon.toLowerCase()].hp;
+            foePkmnHp =  updatehp('foe-healthbar',damageToFoe,foePkmnHp,foeOriginalHp)
+
             // console.log(whichAttack);
         })
     };
 
     function renderFight(whichPokemon, pickedPkmn) {
+        minePkmnHp = pokemonObj[pickedPkmn.toLowerCase()].hp;
+        foePkmnHp = pokemonObj[whichPokemon.toLowerCase()].hp;
+        console.log(minePkmnHp,foePkmnHp)
         $("#pokemon-opponent").html(jqCreateImgPkmn(whichPokemon, 'bounce', 'fast', 'infinite', 'pkmn-opponent'));
         makePkmnVis('pokemon-i-chose');
         $(".text-center").html("Let's Battle!");
         renderStats(pickedPkmn, 'fight');
-        attackChosenClick("my-attack", pickedPkmn);
+        attackChosenClick("my-attack", pickedPkmn, whichPokemon);
         makeStatsVisAndFill('pokemon-opponent-stats',false, whichPokemon.toLowerCase());
         makeStatsVisAndFill('pokemon-stats',true, pickedPkmn.toLowerCase());
     };
@@ -115,6 +124,15 @@ $(document).ready(function () {
     function makePkmnVis(className) {
         $(`.${className}`).css({ 'visibility': 'visible' });
     }
+
+    function updatehp(idHealthBar, damage, hp, originalHp, friend = false) {
+        let newHp =  hp - damage;
+        const percent = (newHp/originalHp)*100;
+        console.log(percent);
+        $(`#${idHealthBar}>div`).css({'width': `${percent}%`});
+        return newHp;
+    }
+
     function makeStatsVisAndFill(id, mineOrFoe = true, aPkmn) {
         console.log(aPkmn)
         let prefix = mineOrFoe ? 'mine' : 'foe';
@@ -122,7 +140,7 @@ $(document).ready(function () {
         let idLevel = `${prefix}-level`;
         let idHp = `${prefix}-hp`;
         let idArray = [idName,idLevel,idHp];
-        let {name,level,hp} = pokemonObj[aPkmn]
+        let {name,level,hp} = pokemonObj[aPkmn];
         let statArray = [name,level,hp];
         idArray.map((stat, i)=>$(`#${stat}`).text(`${statArray[i]}`));
         $(`#${id}`).css({ 'visibility': 'visible' });

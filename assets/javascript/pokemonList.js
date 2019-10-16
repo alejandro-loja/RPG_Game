@@ -10,11 +10,11 @@ let pokemonObj =
         attacks: [
             {
                 attackName: 'Vine Whip',
-                damage: 30
+                damage: 8
             },
             {
                 attackName: 'Tackle',
-                damage: 20
+                damage: 5
             }
         ]
     },
@@ -27,11 +27,11 @@ let pokemonObj =
         attacks: [
             {
                 attackName: 'Scratch',
-                damage: 10
+                damage: 5
             },
             {
                 attackName: 'Ember',
-                damage: 40
+                damage: 10
             }
         ]
     },
@@ -44,11 +44,11 @@ let pokemonObj =
         attacks: [
             {
                 attackName: 'Tackle',
-                damage: 20
+                damage: 5
             },
             {
                 attackName: 'Water Gun',
-                damage: 40
+                damage: 10
             }
         ]
     }
