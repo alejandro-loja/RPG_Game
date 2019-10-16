@@ -49,7 +49,9 @@ $(document).ready(function () {
             $('#' + whichPokemon).removeClass('infinite');
         });
     }
-
+    function updateinfo(message,idText='#info'){
+        $(idText).text(message);
+    }
     function pokemonChosenClick(classClick, idText, callback, chosenBool, pickedPkmn = null) {
         $(classClick).on('click', function () {
             let whichPokemon = $(this).attr("id");
@@ -73,15 +75,18 @@ $(document).ready(function () {
     function attackChosenClick(classClick, pickedPkmn, whichPokemon) {
         $(`.${classClick}`).on('click', function () {
             let damageToFoe;
+            let currentAttack;
             let whichAttack = $(this).text();
             const pkmnAttackArr = pokemonObj[pickedPkmn.toLowerCase()].attacks;
             pkmnAttackArr.map((attack, i)=> {
                 if (attack.attackName === whichAttack){
+                    currentAttack = attack.attackName;
                      damageToFoe = attack.damage;
                 }
             })
             const foeOriginalHp = pokemonObj[whichPokemon.toLowerCase()].hp;
-            foePkmnHp =  updatehp('foe-healthbar',damageToFoe,foePkmnHp,foeOriginalHp)
+            foePkmnHp =  updatehp('foe-healthbar',damageToFoe,foePkmnHp,foeOriginalHp);
+            updateinfo(`${pickedPkmn} used ${currentAttack.toLowerCase()}!` )
 
             // console.log(whichAttack);
         })
