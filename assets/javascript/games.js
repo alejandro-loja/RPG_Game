@@ -11,7 +11,6 @@ $(document).ready(function () {
     let minePkmnHp = 0;
     let foePkmnHp = 0;
 
-
     // a list of the order i'd like the pokmeon to render.
     let pkmnToRender = [
         pokemonObj.bulbasaur.name,
@@ -19,19 +18,29 @@ $(document).ready(function () {
         pokemonObj.squirtle.name
     ];
 
+    function reduceListOfPKMN(pokemonName) {
+        if (pkmnToRender.length > 0) {
+            pkmnToRender = pkmnToRender.filter(pkmn => pkmn !== pokemonName);
+            return true;
+        } else {
+            return false;
+        }
+    };
+
     //used to create pokmeon based on name of pokemon
     function jqCreateImgPkmn(name, classAni, classSpeed, className = '', className2 = '') {
         let pkmnImg = $(`<img src="assets/images/${name.toLowerCase()}.png" id="${name}" 
         class="test animated  ${classAni} ${classSpeed} ${className} ${className2}" alt="${name}">`);
         return pkmnImg;
     }
+
     //centers pokemon for the first screen ie choose a pokemon
     function renderChoosePokemon(arr, location, classAni, classSpeed, className = '', className2 = '') {
         // Will have the following animation characteristics: bounce faster
         arr.map(name => $(`#${location}`)
             .append(jqCreateImgPkmn(name, classAni, classSpeed, className, className2))
         );
-    }
+    };
     function pokemonChosen(idText, chosenBool) {
         //uses a mouseover. added the 'infinite' addition in order to activate the animation.
         $('.pokemon-to-choose').on('mouseover', function () {
@@ -46,10 +55,11 @@ $(document).ready(function () {
             let whichPokemon = $(this).attr("id");
             $('#' + whichPokemon).removeClass('infinite');
         });
-    }
+    };
+
     function updateinfo(message, idText = '#info', appendBool) {
         $(idText).text(message);
-    }
+    };
 
     function pokemonChosenClick(classClick, idText, callback, chosenBool, pickedPkmn = null) {
         $(classClick).on('click', function () {
@@ -73,23 +83,36 @@ $(document).ready(function () {
 
     function pokemonFaints(pkmnHp, friend = true, pkmn) {
         const faintAnimation =
-            (pkmn, remove1, remove2) =>
+            (pkmn, remove1) =>
                 $('#' + pkmn).removeClass('infinite')
                     .removeClass(remove1)
-                    .removeClass(remove2)
+                    .removeClass('fast')
                     .addClass('fadeOutDown');
 
         const zeroHpBool = pkmnHp === 0;
         if (zeroHpBool && !friend) {
+
             faintAnimation(pkmn, 'bounce');
             console.log(pkmnToRender);
-            // pkmnToRender = pkmnToRender.filter(pkmn => pkmn !== pickedPkmn);
+            const anyPkmnLeft = reduceListOfPKMN(pkmn);
+
+            if (anyPkmnLeft) {
+                console.log('There are still pokemon left')
+
+            } else if (!anyPkmnLeft) {
+                console.log('pokmemon are gone')
+            }
+            console.log(pkmnToRender)
             return true;
+
         } else if (zeroHpBool && friend) {
             faintAnimation(pkmn, 'pulse');
             return true;
-        } else return false;
-    }
+
+        } else {
+            return false;
+        }
+    };
 
     function attackChosenClick(classClick, pickedPkmn, whichPokemon) {
         $(`.${classClick}`).on('click', function () {
@@ -109,7 +132,8 @@ $(document).ready(function () {
             if (faintedBool) {
                 makePkmnVis('#fight>li', false);
                 updateinfo(`${whichPokemon} fainted!`);
-
+                // setTimeout(function(){updateinfo('Resetting Game...')}, 2000)
+                // setTimeout(function() {location.reload()}, 5000);
                 // setTimeout(function () { $('body').empty() }, 3000);
             } else {
                 updateinfo(`${pickedPkmn} used ${currentAttack.toLowerCase()}!`);
@@ -126,10 +150,16 @@ $(document).ready(function () {
         currentAttackName = currentAttack.attackName;
         currentAttackDamage = currentAttack.damage;
         const mineOriginalHp = pokemonObj[pickedPkmn.toLowerCase()].hp;
-        minePkmnHp = updatehp('mine-healthbar', currentAttackDamage, minePkmnHp, mineOriginalHp, true);
+        minePkmnHp = updatehp('mine-healthbar', currentAttackDamage, minePkmnHp, mineOriginalHp, true)
+        const faintedBool = pokemonFaints(minePkmnHp, false, pickedPkmn);
+        if(faintedBool) {
+            updateinfo(`Oh no! partner ${pickedPkmn} fainted!...`);
+            setTimeout(function(){updateinfo('Resetting Game...')}, 2000)
+            setTimeout(function() {location.reload()}, 5000);
+        }
         updateinfo(`Enemy ${whichPokemon} used ${currentAttackName.toLowerCase()}!`);
         makePkmnVis('#fight>li', true);
-    }
+    };
 
     function renderFight(whichPokemon, pickedPkmn) {
         minePkmnHp = pokemonObj[pickedPkmn.toLowerCase()].hp;
@@ -147,7 +177,7 @@ $(document).ready(function () {
     function renderStats(whichPokemon, attacksID) {
         const myAttacks = pokemonObj[whichPokemon.toLowerCase()];
         myAttacks.attacks.map((attack, i) => { $(`#${attacksID}`).append(`<li class="my-attack">${attack.attackName}<li>`) })
-    }
+    };
 
     function renderBattle(pickedPkmn, callback) {
         // Render chosen pokemon
@@ -155,15 +185,15 @@ $(document).ready(function () {
         $("#pokemon-chosen").html(jqCreateImgPkmn(pickedPkmn, 'pulse', 'fast', 'pokemon-i-chose', 'infinite'));
 
         // Filter remaining pokemon
-        pkmnToRender = pkmnToRender.filter(pkmn => pkmn !== pickedPkmn);
-        console.log(pkmnToRender);
+        reduceListOfPKMN(pickedPkmn);
+        // console.log(pkmnToRender);
         // Add animation
         renderChoosePokemon(pkmnToRender, 'pokemon-choose', 'tada', 'fast', 'pokemon-to-choose');
         //Add mouseover/out
         pokemonChosen('#info');
         //Add click then function
         pokemonChosenClick('.pokemon-to-choose', '#info', renderFight, true, pickedPkmn);
-    }
+    };
 
     function makePkmnVis(classIdName, see = true) {
         if (see) {
@@ -171,7 +201,7 @@ $(document).ready(function () {
         } else {
             $(`${classIdName}`).css({ 'visibility': 'hidden' });
         }
-    }
+    };
 
     function updatehp(idHealthBar, damage, hp, originalHp, friend = false) {
         let newHp = hp - damage;
