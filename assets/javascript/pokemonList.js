@@ -15,6 +15,10 @@ let pokemonObj =
             {
                 attackName: 'Tackle',
                 damage: 5
+            },
+            {
+                attackName: 'SolarBeam',
+                damage: 70
             }
         ]
     },

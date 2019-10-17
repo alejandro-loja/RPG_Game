@@ -1,4 +1,5 @@
 $white-background: rgba(238, 238, 238, 0.9);
+$white-background2: rgba(255, 244, 144, 0.5);
 $background: rgb(14, 190, 102);
 
 * {
@@ -94,7 +95,6 @@ ul {
   position: absolute;
   left: 2%;
   bottom: 1em;
-
   display: flex;
   width: 90%;
   height: 100px;
@@ -108,13 +108,13 @@ ul {
 }
 #info {
   border: 1px #ccc solid;
-  width: 40%;
+  width: 60%;
   height: 100%;
 }
 #fight {
   top: 0;
   border: 2px black dashed;
-  width: 60%;
+  width: 40%;
   height: 100%;
 
   & > ul {
@@ -137,11 +137,11 @@ ul {
 
 #pokemon-opponent-stats,
 #pokemon-stats {
-  border: 1px black solid;
-  border-radius: 20px;
+  border: 1px rgb(255, 255, 255) solid;
+  border-radius: 10px;
   visibility: hidden;
   padding: 0.5em;
-  background-color: $white-background;
+  background-color: $white-background2;
 }
 
 #pokemon-opponent-stats {
@@ -152,6 +152,10 @@ ul {
   & div {
     margin-bottom: 0.2em;
   }
+}
+#mine-hp {
+  text-align: right;
+  font-weight: bold;
 }
 
 #pokemon-stats {
@@ -169,7 +173,7 @@ ul {
   background-color: #555;
   border-radius: 13px;
   /* (height of inner div) / 2 + padding */
-  padding: 3px;
+  padding: 2px;
 }
 
 #foe-healthbar > div,
@@ -180,4 +184,16 @@ ul {
   /* Adjust with JavaScript */
   height: 10px;
   border-radius: 10px;
+}
+
+#foe-name, #mine-name {
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 1em;
+  letter-spacing: 0.1em;
+  font-weight: bold;
+}
+
+#foe-level, #mine-level {
+  margin-left: 1em;
+  margin-bottom: 0.4em !important;
 }
