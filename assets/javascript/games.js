@@ -14,16 +14,16 @@ $(document).ready(function () {
         pokemonObj.bulbasaur.name,
         pokemonObj.charmander.name,
         pokemonObj.squirtle.name,
-        // pokemonObj.pikachu.name,
-        // pokemonObj.mew.name
+        pokemonObj.pikachu.name,
+        pokemonObj.mew.name
     ];
 
     function reduceListOfPKMN(pokemonName) {
         if (pkmnToRender.length > 0) {
             pkmnToRender = pkmnToRender.filter(pkmn => pkmn !== pokemonName);
-
             return true;
         } else {
+            console.log('THIS SHOULD NOT POP UP')
             return false;
         }
     };
@@ -97,6 +97,7 @@ $(document).ready(function () {
         if (zeroHpBool && !friend) {
 
             faintAnimation(pkmn, 'bounce');
+            console.log('USED POKEMON REDUCTION')
             const anyPkmnLeft = reduceListOfPKMN(pkmn);
 
             if (anyPkmnLeft) {
@@ -117,6 +118,7 @@ $(document).ready(function () {
         }
     };
 
+    // Logic for my pokemon attacks
     function attackChosenClick(classClick, pickedPkmn, whichPokemon) {
         $(`.${classClick}`).on('click', function () {
             let damageToFoe;
@@ -135,13 +137,21 @@ $(document).ready(function () {
 
             // if foe faints!
             if (faintedBool) {
+                
                 // pokemon fades away
                 makePkmnVis('#fight>li', false);
                 // Anounces that pokemon fainted
                 updateinfo(`${whichPokemon} fainted!`);
+                const pkmnLeft = pkmnToRender.length;
 
-                if (pkmnToRender.length > 0) {
+                if (pkmnLeft > 0) {
                     console.log(pkmnToRender, 'pkmnToRender');
+                    let anotherOne = pkmnToRender[Math.floor(Math.random() * pkmnLeft)];
+                    setTimeout(function () {updateinfo(`...Now a wild ${anotherOne} appeared!`)}, 2000);
+                    setTimeout(function() {renderFight(anotherOne)},3500);
+                    whichPokemon = anotherOne;
+                    setTimeout(function () {makePkmnVis('#fight>li', true)}, 3500);
+
                 } else {
                     setTimeout(function () { updateinfo('YOU WON! Everyone was defeated!') }, 2000);
                 }
@@ -154,7 +164,7 @@ $(document).ready(function () {
         })
     };
 
-
+  // logic for foe attacke  
     function foeAttacks(whichPokemon, pickedPkmn) {
         const listOfAttacks = pokemonObj[whichPokemon.toLowerCase()].attacks;
         const numAttacks = listOfAttacks.length;
@@ -164,7 +174,7 @@ $(document).ready(function () {
         const mineOriginalHp = pokemonObj[pickedPkmn.toLowerCase()].hp;
 
         minePkmnHp = updatehp('mine-healthbar', currentAttackDamage, minePkmnHp, mineOriginalHp, true);
-        const faintedBool = pokemonFaints(minePkmnHp, false, pickedPkmn);
+        const faintedBool = pokemonFaints(minePkmnHp, true, pickedPkmn);
         if (faintedBool) {
             makePkmnVis('#fight>li', false);
             updateinfo(`Oh no! partner ${pickedPkmn} fainted!...`);
@@ -237,7 +247,7 @@ $(document).ready(function () {
 
         console.log(originalHp, hp, percent);
         if (percent <= 0) {
-            console.log('\nYOUR DEAD\n')
+            // console.log('\nYOUR DEAD\n');
             newHp = 0;
         } else if (percent < 15) {
             newColor(idHealthBar, 'red');
@@ -253,7 +263,7 @@ $(document).ready(function () {
     };
 
     function makeStatsVisAndFill(id, mineOrFoe = true, aPkmn) {
-        console.log(aPkmn)
+        console.log(aPkmn);
         let prefix = mineOrFoe ? 'mine' : 'foe';
         const currentHp = mineOrFoe ? minePkmnHp : foePkmnHp;
         let idName = `${prefix}-name`;
@@ -263,7 +273,9 @@ $(document).ready(function () {
         let { name, level, hp } = pokemonObj[aPkmn];
         let statArray = [name, `Lv. ${level}`, `hp ${currentHp}/${hp}`];
         idArray.map((stat, i) => $(`#${stat}`).text(`${statArray[i]}`));
+        
         $(`#${id}`).css({ 'visibility': 'visible' });
+        $(`#${prefix}-healthbar>div`).css({ 'width': `100%` });
     };
 
     //First Render Pokemon onto 'center-stage1 using the designated list.
