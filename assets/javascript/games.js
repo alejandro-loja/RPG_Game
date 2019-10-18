@@ -275,7 +275,7 @@ $(document).ready(function () {
         idArray.map((stat, i) => $(`#${stat}`).text(`${statArray[i]}`));
         
         $(`#${id}`).css({ 'visibility': 'visible' });
-        $(`#${prefix}-healthbar>div`).css({ 'width': `100%` });
+        $(`#${prefix}-healthbar>div`).css({ 'width': `100%`, 'background-color': 'rgb(0, 187, 25)' });
     };
 
     //First Render Pokemon onto 'center-stage1 using the designated list.

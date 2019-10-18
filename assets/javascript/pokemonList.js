@@ -18,7 +18,7 @@ let pokemonObj =
             },
             {
                 attackName: 'SolarBeam',
-                damage: 50
+                damage: 30
             }
         ]
     },
