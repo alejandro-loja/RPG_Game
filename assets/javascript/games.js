@@ -1,9 +1,6 @@
 $(document).ready(function () {
-    // const hello = require('./pokemon.js')
     //READY TO PLAY
     console.log("jQuery Ready!");
-    // $('#foe-healthbar>div').css({'width': '100%'});
-    // console.log(allPokemon)
     let wins = 0;
     let losses = 0;
     let genNumber;
@@ -12,15 +9,19 @@ $(document).ready(function () {
     let foePkmnHp = 0;
 
     // a list of the order i'd like the pokmeon to render.
+    // const pokemonOnList = () => pokemonObj[x].name;
     let pkmnToRender = [
         pokemonObj.bulbasaur.name,
         pokemonObj.charmander.name,
-        pokemonObj.squirtle.name
+        pokemonObj.squirtle.name,
+        // pokemonObj.pikachu.name,
+        // pokemonObj.mew.name
     ];
 
     function reduceListOfPKMN(pokemonName) {
         if (pkmnToRender.length > 0) {
             pkmnToRender = pkmnToRender.filter(pkmn => pkmn !== pokemonName);
+
             return true;
         } else {
             return false;
@@ -68,12 +69,14 @@ $(document).ready(function () {
             // clear out current pokemon
             $(classClick).parent().empty();
             if (!chosenBool) {
-                $(idText).text(`You chose ${whichPokemon}!`);
+                updateinfo(`You chose ${whichPokemon}!`, idText);
+                // $(idText).text(`You chose ${whichPokemon}!`);
                 if (typeof callback === 'function') {
                     callback(whichPokemon);
                 }
             } else {
-                $(idText).text(`Opponent ${whichPokemon} appeared!`);
+                updateinfo(`Opponent ${whichPokemon} appeared!`, idText);
+                // $(idText).text(`Opponent ${whichPokemon} appeared!`);
                 if (typeof callback === 'function') {
                     callback(whichPokemon, pickedPkmn);
                 }
@@ -90,17 +93,17 @@ $(document).ready(function () {
                     .addClass('fadeOutDown');
 
         const zeroHpBool = pkmnHp === 0;
+
         if (zeroHpBool && !friend) {
 
             faintAnimation(pkmn, 'bounce');
-            console.log(pkmnToRender);
             const anyPkmnLeft = reduceListOfPKMN(pkmn);
 
             if (anyPkmnLeft) {
-                console.log('There are still pokemon left')
+                console.log('There are still pokemon left');
 
             } else if (!anyPkmnLeft) {
-                console.log('pokmemon are gone')
+                console.log('pokmemon are gone');
             }
             console.log(pkmnToRender)
             return true;
@@ -129,12 +132,20 @@ $(document).ready(function () {
             const foeOriginalHp = pokemonObj[whichPokemon.toLowerCase()].hp;
             foePkmnHp = updatehp('foe-healthbar', damageToFoe, foePkmnHp, foeOriginalHp, false);
             const faintedBool = pokemonFaints(foePkmnHp, false, whichPokemon);
+
+            // if foe faints!
             if (faintedBool) {
+                // pokemon fades away
                 makePkmnVis('#fight>li', false);
+                // Anounces that pokemon fainted
                 updateinfo(`${whichPokemon} fainted!`);
-                // setTimeout(function(){updateinfo('Resetting Game...')}, 2000)
-                // setTimeout(function() {location.reload()}, 5000);
-                // setTimeout(function () { $('body').empty() }, 3000);
+
+                if (pkmnToRender.length > 0) {
+                    console.log(pkmnToRender, 'pkmnToRender');
+                } else {
+                    setTimeout(function () { updateinfo('YOU WON! Everyone was defeated!') }, 2000);
+                }
+
             } else {
                 updateinfo(`${pickedPkmn} used ${currentAttack.toLowerCase()}!`);
                 makePkmnVis('#fight>li', false);
@@ -143,6 +154,7 @@ $(document).ready(function () {
         })
     };
 
+
     function foeAttacks(whichPokemon, pickedPkmn) {
         const listOfAttacks = pokemonObj[whichPokemon.toLowerCase()].attacks;
         const numAttacks = listOfAttacks.length;
@@ -150,39 +162,52 @@ $(document).ready(function () {
         currentAttackName = currentAttack.attackName;
         currentAttackDamage = currentAttack.damage;
         const mineOriginalHp = pokemonObj[pickedPkmn.toLowerCase()].hp;
-        minePkmnHp = updatehp('mine-healthbar', currentAttackDamage, minePkmnHp, mineOriginalHp, true)
+
+        minePkmnHp = updatehp('mine-healthbar', currentAttackDamage, minePkmnHp, mineOriginalHp, true);
         const faintedBool = pokemonFaints(minePkmnHp, false, pickedPkmn);
-        if(faintedBool) {
+        if (faintedBool) {
+            makePkmnVis('#fight>li', false);
             updateinfo(`Oh no! partner ${pickedPkmn} fainted!...`);
-            setTimeout(function(){updateinfo('Resetting Game...')}, 2000)
-            setTimeout(function() {location.reload()}, 5000);
+            setTimeout(function () { updateinfo('Your pokemon blacked out!  Resetting Game...') }, 3000)
+            setTimeout(function () { location.reload() }, 6000);
+        } else {
+            updateinfo(`Enemy ${whichPokemon} used ${currentAttackName.toLowerCase()}!`);
+            makePkmnVis('#fight>li', true);
         }
-        updateinfo(`Enemy ${whichPokemon} used ${currentAttackName.toLowerCase()}!`);
-        makePkmnVis('#fight>li', true);
     };
 
     function renderFight(whichPokemon, pickedPkmn) {
-        minePkmnHp = pokemonObj[pickedPkmn.toLowerCase()].hp;
+
+        // if false then it will not update your current pokemon's status
+        if (pickedPkmn) {
+            minePkmnHp = pokemonObj[pickedPkmn.toLowerCase()].hp;
+            makePkmnVis('.pokemon-i-chose');
+            $(".text-center").html("Let's Battle!");
+            renderStats(pickedPkmn, 'fight');
+            attackChosenClick("my-attack", pickedPkmn, whichPokemon);
+            makeStatsVisAndFill('pokemon-stats', true, pickedPkmn.toLowerCase());
+        }
+
         foePkmnHp = pokemonObj[whichPokemon.toLowerCase()].hp;
-        console.log(minePkmnHp, foePkmnHp)
-        $("#pokemon-opponent").html(jqCreateImgPkmn(whichPokemon, 'bounce', 'fast', 'infinite', 'pkmn-opponent'));
-        makePkmnVis('.pokemon-i-chose');
-        $(".text-center").html("Let's Battle!");
-        renderStats(pickedPkmn, 'fight');
-        attackChosenClick("my-attack", pickedPkmn, whichPokemon);
+        $("#pokemon-opponent")
+            .html(jqCreateImgPkmn(whichPokemon, 'bounce', 'fast', 'infinite', 'pkmn-opponent'));
         makeStatsVisAndFill('pokemon-opponent-stats', false, whichPokemon.toLowerCase());
-        makeStatsVisAndFill('pokemon-stats', true, pickedPkmn.toLowerCase());
     };
 
     function renderStats(whichPokemon, attacksID) {
         const myAttacks = pokemonObj[whichPokemon.toLowerCase()];
-        myAttacks.attacks.map((attack, i) => { $(`#${attacksID}`).append(`<li class="my-attack">${attack.attackName}<li>`) })
+        myAttacks.attacks.map((attack, i) => {
+            $(`#${attacksID}`)
+                .append(`<li class="my-attack">${attack.attackName}<li>`)
+        })
     };
 
     function renderBattle(pickedPkmn, callback) {
         // Render chosen pokemon
         $(".text-center").html("Choose an Opponent.");
-        $("#pokemon-chosen").html(jqCreateImgPkmn(pickedPkmn, 'pulse', 'fast', 'pokemon-i-chose', 'infinite'));
+
+        $("#pokemon-chosen")
+            .html(jqCreateImgPkmn(pickedPkmn, 'pulse', 'fast', 'pokemon-i-chose', 'infinite'));
 
         // Filter remaining pokemon
         reduceListOfPKMN(pickedPkmn);
@@ -207,7 +232,8 @@ $(document).ready(function () {
         let newHp = hp - damage;
         const percent = (newHp / originalHp) * 100;
         //changes color of hp bar
-        const newColor = (id, color) => $(`#${id}>div`).css({ 'background-color': color });
+        const newColor = (id, color) => $(`#${id}>div`)
+            .css({ 'background-color': color });
 
         console.log(originalHp, hp, percent);
         if (percent <= 0) {
