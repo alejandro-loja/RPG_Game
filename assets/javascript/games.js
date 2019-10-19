@@ -42,6 +42,7 @@ $(document).ready(function () {
             .append(jqCreateImgPkmn(name, classAni, classSpeed, className, className2))
         );
     };
+
     function pokemonChosen(idText, chosenBool) {
         //uses a mouseover. added the 'infinite' addition in order to activate the animation.
         $('.pokemon-to-choose').on('mouseover', function () {
@@ -58,7 +59,8 @@ $(document).ready(function () {
         });
     };
 
-    function updateinfo(message, idText = '#info', appendBool) {
+    function updateinfo(message, idText = '#info') {
+        // Updates info in the textbox
         $(idText).text(message);
     };
 
@@ -147,7 +149,7 @@ $(document).ready(function () {
                 if (pkmnLeft > 0) {
                     console.log(pkmnToRender, 'pkmnToRender');
                     let anotherOne = pkmnToRender[Math.floor(Math.random() * pkmnLeft)];
-                    setTimeout(function () {updateinfo(`...Now a wild ${anotherOne} appeared!`)}, 2000);
+                    setTimeout(function () {updateinfo(`...a wild ${anotherOne} appeared!`)}, 2000);
                     setTimeout(function() {renderFight(anotherOne)},3500);
                     whichPokemon = anotherOne;
                     setTimeout(function () {makePkmnVis('#fight>li', true)}, 3500);

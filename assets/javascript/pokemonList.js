@@ -5,20 +5,24 @@ let pokemonObj =
         name: 'Bulbasaur',
         kdex: 1,
         type: 'grass',
-        hp: 60,
+        hp: 72,
         level: 5,
         attacks: [
             {
                 attackName: 'Vine Whip',
-                damage: 8
+                damage: 4
+            },
+            {
+                attackName: 'Growl',
+                damage: 0
             },
             {
                 attackName: 'Tackle',
-                damage: 5
+                damage: 1
             },
             {
-                attackName: 'SolarBeam',
-                damage: 30
+                attackName: 'Razor Leaf',
+                damage: 16
             }
         ]
     },
@@ -26,50 +30,72 @@ let pokemonObj =
         name: 'Charmander',
         kdex: 3,
         type: 'fire',
-        hp: 65,
+        hp: 70,
         level: 5,
         attacks: [
             {
                 attackName: 'Scratch',
-                damage: 5
+                damage: 1
+            },
+            {
+                attackName: 'Tail Whip',
+                damage: 0
             },
             {
                 attackName: 'Ember',
-                damage: 10
+                damage: 4
+            },
+            {
+                attackName: 'Flamethrower',
+                damage: 14
             }
+
         ]
     },
     squirtle: {
         name: 'Squirtle',
         kdex: 7,
         type: 'water',
-        hp: 50,
+        hp: 70,
         level: 5,
         attacks: [
             {
                 attackName: 'Tackle',
-                damage: 5
+                damage: 1
+            },
+            {
+                attackName: 'Tail Whip',
+                damage: 0
             },
             {
                 attackName: 'Water Gun',
-                damage: 10
+                damage: 11
+            },
+            {
+                attackName: 'Bubble',
+                damage: 4
             }
+
         ]
     },
     pikachu: {
         name: 'Pikachu',
         kdex: 25,
         type: 'electric',
-        hp: 50,
+        hp: 72,
         level: 6,
         attacks: [
             {
                 attackName: 'Tackle',
-                damage: 5
+                damage: 2
+            },
+            {
+                attackName: 'Tail Whip',
+                damage: 0
             },
             {
                 attackName: 'Thunder Shock',
-                damage: 15
+                damage: 11
             }
         ]
     },
@@ -77,16 +103,24 @@ let pokemonObj =
         name: 'Mew',
         kdex: 151,
         type: 'psychic',
-        hp: 80,
-        level: 10,
+        hp: 78,
+        level: 6,
         attacks: [
             {
                 attackName: 'Psychic',
-                damage: 40
+                damage: 16
             },
             {
                 attackName: 'Bite',
-                damage: 30
+                damage: 5
+            },
+            {
+                attackName: 'Pound',
+                damage: 3
+            },
+            {
+                attackName: 'Tail Whip',
+                damage: 0
             }
         ]
     },
