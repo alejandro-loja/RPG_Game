@@ -14,10 +14,10 @@ A battle inspiration of the popular franchise Pokemon.
 
 ## How to play
 
-1. Begin with selecting a character
-2. Next,choose a character you would like to fight first.
-3. Now choose an attack the list provided. Every Pokemon will have their own unique sets of attacks.
-4. If you lose enough healthpoints (HP) your Pokemon will faint and the game will restart.
+1. Begin with selecting a character you would like to play as.
+2. Next, choose a character you would like to fight.
+3. Now choose an attack from the list provided. Every Pokemon will have their own unique sets of attacks.
+4. Note: If you lose enough healthpoints (HP) your Pokemon will faint and the game will restart.
 5. The goal is to defeat the entire roster of opponents.
 
 ### Good Luck!
