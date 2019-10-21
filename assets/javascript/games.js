@@ -1,10 +1,10 @@
 $(document).ready(function () {
     //READY TO PLAY
     console.log("jQuery Ready!");
-    let wins = 0;
-    let losses = 0;
-    let genNumber;
-    let totalVal = 0;
+    // let wins = 0;
+    // let losses = 0;
+    // let genNumber;
+    // let totalVal = 0;
     let minePkmnHp = 0;
     let foePkmnHp = 0;
 
